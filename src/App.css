@@ -92,10 +92,18 @@ input {
 }
 
 .movie-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.15s;
   background: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
 }
 
 .movie-card img {
@@ -126,4 +134,68 @@ input {
 .empty {
   text-align: center;
   color: #777;
+}
+
+/* Movie details page */
+.details {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.details-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 16px 0 20px;
+}
+
+.details-top img {
+  width: 200px;
+  border-radius: 8px;
+}
+
+.details-top > div {
+  flex: 1;
+  min-width: 220px;
+}
+
+.details-top p {
+  line-height: 1.5;
+  color: #444;
+}
+
+/* Keeps the trailer at 16:9 whatever the screen width */
+.trailer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.trailer iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  background: #e50914;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  background: #b20710;
+}
+
+.not-found {
+  text-align: center;
 }

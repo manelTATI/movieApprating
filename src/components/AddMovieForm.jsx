@@ -1,11 +1,19 @@
 import { useState } from "react";
 
+// Turns a normal YouTube link into an embed link,
+// e.g. https://www.youtube.com/watch?v=abc -> https://www.youtube.com/embed/abc
+function toEmbedLink(link) {
+  const match = link.match(/(?:watch\?v=|youtu\.be\/|embed\/)([\w-]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : "";
+}
+
 // A form to add a new movie
 function AddMovieForm({ onAdd }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [posterURL, setPosterURL] = useState("");
   const [rating, setRating] = useState("");
+  const [trailerLink, setTrailerLink] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault(); // stop the page from reloading
@@ -16,10 +24,12 @@ function AddMovieForm({ onAdd }) {
     }
 
     onAdd({
+      id: Date.now(), // a simple unique id
       title,
       description,
       posterURL: posterURL || "https://picsum.photos/300/450",
       rating: Number(rating),
+      trailerLink: toEmbedLink(trailerLink),
     });
 
     // Clear the form
@@ -27,6 +37,7 @@ function AddMovieForm({ onAdd }) {
     setDescription("");
     setPosterURL("");
     setRating("");
+    setTrailerLink("");
   };
 
   return (
@@ -58,6 +69,12 @@ function AddMovieForm({ onAdd }) {
         step="0.5"
         value={rating}
         onChange={(e) => setRating(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="YouTube trailer link"
+        value={trailerLink}
+        onChange={(e) => setTrailerLink(e.target.value)}
       />
       <button type="submit">Add Movie</button>
     </form>
